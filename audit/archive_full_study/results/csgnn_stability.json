@@ -1,0 +1,32 @@
+{
+ "bupt": {
+  "runs": 20,
+  "collapsed": 11,
+  "collapsed_seeds_0_2": 11,
+  "runs_seeds_0_2": 15,
+  "mean_test_gmean_all_runs": 0.32857960184836255,
+  "mean_test_gmean_selected": 0.7359455590185445,
+  "selected_seeds": [
+   "sel42",
+   "sel42",
+   "sel42",
+   "sel2",
+   "sel42"
+  ]
+ },
+ "sichuan": {
+  "runs": 20,
+  "collapsed": 0,
+  "collapsed_seeds_0_2": 0,
+  "runs_seeds_0_2": 15,
+  "mean_test_gmean_all_runs": 0.8742582893573865,
+  "mean_test_gmean_selected": 0.8761909067363896,
+  "selected_seeds": [
+   "sel0",
+   "sel1",
+   "sel1",
+   "sel42",
+   "sel1"
+  ]
+ }
+}
