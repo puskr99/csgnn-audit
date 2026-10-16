@@ -58,9 +58,44 @@ and the learned cost matrix `M` of the final inference call it re-scores the sam
 
 A leakage-free inference procedure must give identical predictions in the first two rows.
 
-## Results (released code, released configs, test set of the released split)
+## Results: claimed vs. reproduced
 
-See `audit/RESULTS.md` for the full tables (generated) and `audit/logs/` for the raw console output.
+Released code, unchanged; test set of the released split (`random_state=2`, 20/20/60). "Claimed" is from
+Hu et al. (TCSS 2023). Rows starting with "Same model" re-score the model of the row above; only the scoring differs.
+
+| Dataset | Setting | AUC | G-Mean | Macro recall |
+|---|---|---|---|---|
+| **BUPT** | Claimed in the paper | 0.9698 | 0.8262 | 0.8317 |
+| | Reproduced: released config (1 epoch), released seed 42, released scoring | 0.9698 | 0.8259 | 0.8313 |
+| | Same model, test labels shuffled (mean of 5) | 0.8423 | 0.6634 | 0.6814 |
+| | Same model, label-free (expected-cost-row repair) | 0.8590 | 0.6819 | 0.7000 |
+| | Released scoring, seeds 0/1/2/42 (mean ± sd) | 0.9569 ± 0.0143 | 0.4551 ± 0.3481 | 0.6385 ± 0.1376 |
+| | Label-free, 200 epochs, validation-selected, 5 splits (mean ± sd)¹ | 0.8765 ± 0.0260 | 0.7359 ± 0.0324 | 0.7665 ± 0.0213 |
+| **Sichuan** | Claimed in the paper | 0.9539 | 0.8864 | 0.8878 |
+| | Reproduced: released config (15 epochs), seed 42, released scoring | 0.9543 | 0.8654 | 0.8707 |
+| | Same model, label-free (expected-cost-row repair) | 0.9287 | 0.8649 | 0.8702 |
+| | Released scoring, 200 epochs, seed 42 | 0.9558 | 0.8859 | 0.8900 |
+| | Same 200-epoch model, label-free; epoch chosen on validation | 0.9390 | 0.8758 | 0.8785 |
+| | Label-free, 200 epochs, validation-selected, 5 splits (mean ± sd)¹ | 0.9407 ± 0.0027 | 0.8762 ± 0.0037 | 0.8793 ± 0.0036 |
+
+¹ From the full re-evaluation study (`audit/archive_full_study/`, PyTorch port of the released code).
+
+**Summary**
+
+- On BUPT the released code reproduces the published AUC exactly (0.9698), but only when every test node's score is
+  re-weighted using its true label. Shuffling the test labels lowers the AUC to 0.84. Scoring the same model without
+  test labels gives 0.81–0.86. With a fair training budget and validation-only selection the result is 0.88 AUC and
+  0.74 G-Mean, against the published 0.97 and 0.83.
+- The published BUPT G-Mean is reached only with seed 42. With seeds 0, 1 and 2 the same released configuration gives
+  G-Mean 0.59, 0.00 and 0.41.
+- On Sichuan the leak is smaller: +0.026 AUC with the released 15 epochs, and +0.016 AUC / +0.012 G-Mean after 200
+  epochs. The published G-Mean is matched only after 200 epochs with the released scoring; without test labels the
+  same model gives 0.940 AUC / 0.874 G-Mean.
+- The permutation test needs no code reading: with label-free inference, shuffling test labels must leave every
+  prediction unchanged. Under the released scoring, individual test probabilities change by up to 0.084 (BUPT) and
+  0.143 (Sichuan, 200 epochs).
+
+Full tables: `audit/RESULTS.md`. Raw console output: `audit/logs/`.
 
 ## Repository layout
 
