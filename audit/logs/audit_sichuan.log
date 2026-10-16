@@ -1,0 +1,96 @@
+
+===== sichuan_ep15_seed42 =====
+Epoch 0, Train: Recall: 0.5373 AUC: 0.8650 Loss: 2.4003 | Val: Recall: 0.5343 AUC: 0.8712 Loss: 2.4068 
+Epoch 1, Train: Recall: 0.8226 AUC: 0.8725 Loss: 1.9816 | Val: Recall: 0.8505 AUC: 0.8885 Loss: 1.9631 
+Epoch 2, Train: Recall: 0.7970 AUC: 0.9092 Loss: 1.8193 | Val: Recall: 0.7950 AUC: 0.9088 Loss: 1.8153 
+Epoch 3, Train: Recall: 0.8370 AUC: 0.9247 Loss: 1.6739 | Val: Recall: 0.8444 AUC: 0.9319 Loss: 1.6447 
+Epoch 4, Train: Recall: 0.8452 AUC: 0.9167 Loss: 1.5860 | Val: Recall: 0.8629 AUC: 0.9260 Loss: 1.5397 
+Epoch 5, Train: Recall: 0.8487 AUC: 0.9161 Loss: 1.5207 | Val: Recall: 0.8651 AUC: 0.9261 Loss: 1.4668 
+Epoch 6, Train: Recall: 0.8496 AUC: 0.9230 Loss: 1.4595 | Val: Recall: 0.8642 AUC: 0.9330 Loss: 1.4086 
+Epoch 7, Train: Recall: 0.8549 AUC: 0.9319 Loss: 1.4077 | Val: Recall: 0.8576 AUC: 0.9397 Loss: 1.3646 
+Epoch 8, Train: Recall: 0.8586 AUC: 0.9366 Loss: 1.3677 | Val: Recall: 0.8561 AUC: 0.9421 Loss: 1.3272 
+Epoch 9, Train: Recall: 0.8606 AUC: 0.9386 Loss: 1.3325 | Val: Recall: 0.8606 AUC: 0.9427 Loss: 1.2933 
+Epoch 10, Train: Recall: 0.8676 AUC: 0.9407 Loss: 1.3003 | Val: Recall: 0.8530 AUC: 0.9439 Loss: 1.2688 
+Epoch 11, Train: Recall: 0.8703 AUC: 0.9446 Loss: 1.2738 | Val: Recall: 0.8551 AUC: 0.9455 Loss: 1.2458 
+Epoch 12, Train: Recall: 0.8679 AUC: 0.9469 Loss: 1.2529 | Val: Recall: 0.8514 AUC: 0.9463 Loss: 1.2303 
+Epoch 13, Train: Recall: 0.8735 AUC: 0.9480 Loss: 1.2310 | Val: Recall: 0.8550 AUC: 0.9475 Loss: 1.2105 
+Epoch 14, Train: Recall: 0.8746 AUC: 0.9475 Loss: 1.2116 | Val: Recall: 0.8590 AUC: 0.9483 Loss: 1.1943 
+Test set results: 
+Auc= 0.9543 G-mean= 0.8654 Recall= 0.8707
+[audit] released     AUC 0.9543  G-Mean 0.8654
+[audit] shuffled     AUC 0.9283  G-Mean 0.8651  max |dp| 0.0158
+[audit] lf_none      AUC 0.9287  G-Mean 0.8649
+[audit] lf_pred_row  AUC 0.9287  G-Mean 0.8649
+[audit] lf_expected  AUC 0.9287  G-Mean 0.8649
+
+===== sichuan_ep15_seed0 =====
+Epoch 0, Train: Recall: 0.5000 AUC: 0.3235 Loss: 2.3054 | Val: Recall: 0.5006 AUC: 0.2941 Loss: 2.3307 
+Epoch 1, Train: Recall: 0.8089 AUC: 0.8543 Loss: 1.8493 | Val: Recall: 0.8380 AUC: 0.8703 Loss: 1.8458 
+Epoch 2, Train: Recall: 0.8286 AUC: 0.9158 Loss: 1.6586 | Val: Recall: 0.8262 AUC: 0.9191 Loss: 1.6614 
+Epoch 3, Train: Recall: 0.8093 AUC: 0.9099 Loss: 1.5683 | Val: Recall: 0.8017 AUC: 0.9083 Loss: 1.5670 
+Epoch 4, Train: Recall: 0.8414 AUC: 0.9292 Loss: 1.4612 | Val: Recall: 0.8420 AUC: 0.9348 Loss: 1.4434 
+Epoch 5, Train: Recall: 0.8469 AUC: 0.9280 Loss: 1.4060 | Val: Recall: 0.8610 AUC: 0.9374 Loss: 1.3712 
+Epoch 6, Train: Recall: 0.8513 AUC: 0.9094 Loss: 1.3601 | Val: Recall: 0.8687 AUC: 0.9247 Loss: 1.3216 
+Epoch 7, Train: Recall: 0.8548 AUC: 0.9064 Loss: 1.3151 | Val: Recall: 0.8521 AUC: 0.9191 Loss: 1.2917 
+Epoch 8, Train: Recall: 0.8560 AUC: 0.9106 Loss: 1.2806 | Val: Recall: 0.8482 AUC: 0.9190 Loss: 1.2629 
+Epoch 9, Train: Recall: 0.8489 AUC: 0.9163 Loss: 1.2521 | Val: Recall: 0.8443 AUC: 0.9222 Loss: 1.2386 
+Epoch 10, Train: Recall: 0.8648 AUC: 0.9200 Loss: 1.2200 | Val: Recall: 0.8482 AUC: 0.9238 Loss: 1.2137 
+Epoch 11, Train: Recall: 0.8674 AUC: 0.9335 Loss: 1.1962 | Val: Recall: 0.8529 AUC: 0.9354 Loss: 1.1937 
+Epoch 12, Train: Recall: 0.8719 AUC: 0.9463 Loss: 1.1772 | Val: Recall: 0.8453 AUC: 0.9407 Loss: 1.1839 
+Epoch 13, Train: Recall: 0.8739 AUC: 0.9421 Loss: 1.1624 | Val: Recall: 0.8479 AUC: 0.9266 Loss: 1.1737 
+Epoch 14, Train: Recall: 0.8764 AUC: 0.9451 Loss: 1.1481 | Val: Recall: 0.8510 AUC: 0.9356 Loss: 1.1638 
+Test set results: 
+Auc= 0.9437 G-mean= 0.8545 Recall= 0.8608
+[audit] released     AUC 0.9437  G-Mean 0.8545
+[audit] shuffled     AUC 0.9298  G-Mean 0.8543  max |dp| 0.0094
+[audit] lf_none      AUC 0.9306  G-Mean 0.8539
+[audit] lf_pred_row  AUC 0.9306  G-Mean 0.8540
+[audit] lf_expected  AUC 0.9306  G-Mean 0.8540
+
+===== sichuan_ep15_seed1 =====
+Epoch 0, Train: Recall: 0.5000 AUC: 0.6487 Loss: 2.1206 | Val: Recall: 0.5000 AUC: 0.6565 Loss: 2.0724 
+Epoch 1, Train: Recall: 0.8227 AUC: 0.8641 Loss: 1.7104 | Val: Recall: 0.8453 AUC: 0.8847 Loss: 1.6612 
+Epoch 2, Train: Recall: 0.7915 AUC: 0.9092 Loss: 1.5970 | Val: Recall: 0.7887 AUC: 0.9083 Loss: 1.5783 
+Epoch 3, Train: Recall: 0.8348 AUC: 0.9302 Loss: 1.4836 | Val: Recall: 0.8288 AUC: 0.9336 Loss: 1.4625 
+Epoch 4, Train: Recall: 0.8431 AUC: 0.9278 Loss: 1.4133 | Val: Recall: 0.8592 AUC: 0.9343 Loss: 1.3844 
+Epoch 5, Train: Recall: 0.8479 AUC: 0.9267 Loss: 1.3598 | Val: Recall: 0.8623 AUC: 0.9337 Loss: 1.3351 
+Epoch 6, Train: Recall: 0.8548 AUC: 0.9300 Loss: 1.3142 | Val: Recall: 0.8647 AUC: 0.9374 Loss: 1.2971 
+Epoch 7, Train: Recall: 0.8601 AUC: 0.9361 Loss: 1.2709 | Val: Recall: 0.8584 AUC: 0.9420 Loss: 1.2673 
+Epoch 8, Train: Recall: 0.8620 AUC: 0.9410 Loss: 1.2408 | Val: Recall: 0.8592 AUC: 0.9429 Loss: 1.2391 
+Epoch 9, Train: Recall: 0.8659 AUC: 0.9433 Loss: 1.2181 | Val: Recall: 0.8526 AUC: 0.9394 Loss: 1.2221 
+Epoch 10, Train: Recall: 0.8661 AUC: 0.9427 Loss: 1.1987 | Val: Recall: 0.8511 AUC: 0.9377 Loss: 1.2024 
+Epoch 11, Train: Recall: 0.8685 AUC: 0.9371 Loss: 1.1797 | Val: Recall: 0.8547 AUC: 0.9333 Loss: 1.1838 
+Epoch 12, Train: Recall: 0.8677 AUC: 0.9219 Loss: 1.1680 | Val: Recall: 0.8611 AUC: 0.9241 Loss: 1.1647 
+Epoch 13, Train: Recall: 0.8665 AUC: 0.9173 Loss: 1.1577 | Val: Recall: 0.8645 AUC: 0.9220 Loss: 1.1542 
+Epoch 14, Train: Recall: 0.8748 AUC: 0.9264 Loss: 1.1444 | Val: Recall: 0.8636 AUC: 0.9258 Loss: 1.1459 
+Test set results: 
+Auc= 0.9479 G-mean= 0.8682 Recall= 0.8722
+[audit] released     AUC 0.9479  G-Mean 0.8682
+[audit] shuffled     AUC 0.9280  G-Mean 0.8681  max |dp| 0.0127
+[audit] lf_none      AUC 0.9277  G-Mean 0.8683
+[audit] lf_pred_row  AUC 0.9277  G-Mean 0.8682
+[audit] lf_expected  AUC 0.9277  G-Mean 0.8682
+
+===== sichuan_ep15_seed2 =====
+Epoch 0, Train: Recall: 0.5006 AUC: 0.5043 Loss: 2.3252 | Val: Recall: 0.5000 AUC: 0.4748 Loss: 2.3681 
+Epoch 1, Train: Recall: 0.8148 AUC: 0.8615 Loss: 1.8852 | Val: Recall: 0.8368 AUC: 0.8769 Loss: 1.9045 
+Epoch 2, Train: Recall: 0.8062 AUC: 0.9099 Loss: 1.7257 | Val: Recall: 0.8074 AUC: 0.9101 Loss: 1.7532 
+Epoch 3, Train: Recall: 0.8259 AUC: 0.9239 Loss: 1.6068 | Val: Recall: 0.8202 AUC: 0.9285 Loss: 1.6204 
+Epoch 4, Train: Recall: 0.8456 AUC: 0.9257 Loss: 1.5254 | Val: Recall: 0.8524 AUC: 0.9326 Loss: 1.5132 
+Epoch 5, Train: Recall: 0.8496 AUC: 0.9204 Loss: 1.4656 | Val: Recall: 0.8616 AUC: 0.9299 Loss: 1.4422 
+Epoch 6, Train: Recall: 0.8554 AUC: 0.9222 Loss: 1.4081 | Val: Recall: 0.8563 AUC: 0.9302 Loss: 1.3914 
+Epoch 7, Train: Recall: 0.8561 AUC: 0.9249 Loss: 1.3657 | Val: Recall: 0.8548 AUC: 0.9283 Loss: 1.3478 
+Epoch 8, Train: Recall: 0.8619 AUC: 0.9282 Loss: 1.3266 | Val: Recall: 0.8547 AUC: 0.9272 Loss: 1.3123 
+Epoch 9, Train: Recall: 0.8611 AUC: 0.9351 Loss: 1.3008 | Val: Recall: 0.8413 AUC: 0.9258 Loss: 1.2906 
+Epoch 10, Train: Recall: 0.8677 AUC: 0.9131 Loss: 1.2655 | Val: Recall: 0.8565 AUC: 0.9147 Loss: 1.2531 
+Epoch 11, Train: Recall: 0.8652 AUC: 0.8989 Loss: 1.2436 | Val: Recall: 0.8589 AUC: 0.9050 Loss: 1.2295 
+Epoch 12, Train: Recall: 0.8671 AUC: 0.8994 Loss: 1.2224 | Val: Recall: 0.8565 AUC: 0.9042 Loss: 1.2133 
+Epoch 13, Train: Recall: 0.8735 AUC: 0.9130 Loss: 1.2018 | Val: Recall: 0.8562 AUC: 0.9103 Loss: 1.2029 
+Epoch 14, Train: Recall: 0.8740 AUC: 0.9130 Loss: 1.1873 | Val: Recall: 0.8566 AUC: 0.9100 Loss: 1.1908 
+Test set results: 
+Auc= 0.9162 G-mean= 0.8570 Recall= 0.8629
+[audit] released     AUC 0.9162  G-Mean 0.8570
+[audit] shuffled     AUC 0.9014  G-Mean 0.8565  max |dp| 0.0114
+[audit] lf_none      AUC 0.9010  G-Mean 0.8567
+[audit] lf_pred_row  AUC 0.9010  G-Mean 0.8565
+[audit] lf_expected  AUC 0.9010  G-Mean 0.8565
