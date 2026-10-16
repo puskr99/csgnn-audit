@@ -44,9 +44,12 @@ Secondary (minor) observations
 - That the published tables were produced with exactly this code, configuration and software environment
   (we have no access to the authors' runs). The exact match of the BUPT AUC under the released configuration
   suggests that it is, but we cannot verify it.
-- Sichuan: the released configuration (15 epochs) gives AUC 0.9543 / G-Mean 0.8654 versus the published
-  0.9539 / 0.8864. Trained for 200 epochs (seed 42), the released scoring gives 0.9558 / 0.8859, much closer to the
-  published values, which suggests (but does not prove) that the published Sichuan numbers came from longer
-  training. The same 200-epoch model scored without test labels gives 0.9403 / 0.8741.
+- Sichuan: the released configuration (15 epochs, as also stated in the paper) gives AUC 0.9543 / G-Mean 0.8654
+  versus the published 0.9539 / 0.8864; we could not explain the G-Mean gap. (After 200 epochs the released scoring
+  gives 0.9558 / 0.8859 and label-free scoring 0.9403 / 0.8741, but the paper states 15 epochs.)
+- The authors' intended test-time procedure. The paper (Section 4.3.2, Eq. 13: `p_k(v) = Softmax(C[v, k] · z_v[k])`)
+  indexes the cost matrix by node `v` and does not say how the row is chosen when the node's label is unknown; it
+  does not describe inference separately. Section 3 defines `C_ij` as the cost of classifying a class-`i` sample as
+  class `j`, which suggests the row is the node's true class, as in the released code.
 - Whether other reported experiments (ablations, parameter studies, other baselines in the paper) used the
   same scoring path.

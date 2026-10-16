@@ -103,8 +103,9 @@ from Hu et al. (TCSS 2023). Rows beginning "Same model" re-score the model of th
   G-Mean is 0.83, 0.59, 0.00 and 0.41 for seeds 42, 0, 1 and 2.
 - On Sichuan the effect of the label-indexed scoring is small. It raises AUC by 0.026 at the released 15 epochs and
   by 0.016 after 200 epochs, and changes G-Mean by less than 0.001 at 15 epochs and by 0.012 after 200 epochs. The
-  reported Sichuan G-Mean is closely matched after 200 epochs, which suggests the reported numbers may come from a
-  longer training run than the released configuration.
+  paper states 15 epochs for Sichuan, matching the released configuration, so the gap between the reported G-Mean
+  (0.8864) and the reproduced one (0.8654) remains unexplained. After 200 epochs the released scoring gives 0.8859,
+  but we do not suggest that this is how the reported number was obtained.
 - Under the released scoring, permuting the test labels changes individual test probabilities by up to 0.084 (BUPT)
   and 0.143 (Sichuan, 200 epochs).
 
@@ -116,7 +117,11 @@ console output in `audit/logs/`.
 
 - We have no access to the original experimental runs, so we cannot confirm that the published tables were
   produced with this exact code, configuration and software environment.
-- We could not reproduce the reported Sichuan G-Mean with the released 15-epoch configuration.
+- We could not reproduce the reported Sichuan G-Mean with the 15-epoch configuration stated in the paper and the
+  released code.
+- The paper (Section 4.3.2, Eq. 13) defines the cost-sensitive output as `Softmax(C[v, k] · z_v[k])` and does not
+  state how the cost-matrix row is chosen for a test node, whose label is unknown at test time. We report what the
+  released code does; we do not infer the authors' intended test-time procedure.
 - We did not examine the paper's other experiments (ablations, parameter studies, baselines).
 
 Corrections and comments are welcome; please open an issue or contact the maintainers. We will update this
