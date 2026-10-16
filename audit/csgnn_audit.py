@@ -1,4 +1,4 @@
-"""Evaluation audit of the released CSGNN code (xxhu94/CSGNN, commit aef3136).
+"""Reproduction of the released CSGNN evaluation (xxhu94/CSGNN, commit aef3136).
 
 The released training/evaluation function `main.main(args)` is executed UNCHANGED.  The only thing this
 harness does is wrap `model.CostMatrix.cost_logits` so that every call is recorded (inputs are copied, the
@@ -9,14 +9,14 @@ that the released code used to produce its printed test metrics.
 From those we score the *same trained model* in several ways (test nodes only):
 
   released       : main.py's own scoring: cost_logits(z, TRUE labels of all nodes), softmax, argmax
-                   (re-computed here and asserted equal to the numbers main.py printed)
+                   (re-computed here; matches the numbers main.py prints, see audit/logs)
   shuffled_k     : as released, but the test-node labels are randomly permuted before the call
   test_labels_0  : as released, but every test-node label is set to 0 (majority class)
   lf_none        : label-free, cost layer dropped           p = softmax(z)
   lf_pred_row    : label-free, row of the PREDICTED class   cost_logits(z, argmax z)
   lf_expected    : label-free, expected cost row            p ~ (softmax(z)^T M) * exp(z)
 
-A leakage-free inference procedure must give identical predictions for released/shuffled/test_labels_0.
+If test labels did not enter the prediction path, released/shuffled/test_labels_0 would give identical predictions.
 
 Optional `--select-epoch`: additionally record the GNN outputs of every training epoch (the model has no
 dropout/batch-norm, so training-mode outputs equal eval-mode outputs of the parameters at that epoch) and
@@ -24,7 +24,7 @@ choose the epoch on VALIDATION nodes only, using label-free scores (val G-Mean +
 of our re-evaluation paper).  Test metrics are then reported for that epoch.  Use with `--max-epoch 200`.
 
 Usage (from the repository root, after `python data_process.py`; the released code hard-codes
-/code/CSGNN/data, see audit/README.md):
+/code/CSGNN/data, see .github/README.md):
     python audit/csgnn_audit.py --config config/csgnn_sichuan.yml --seeds 0 1 2 42 --perms 5
     python audit/csgnn_audit.py --config config/csgnn_bupt.yml    --seeds 0 1 2 42 --perms 5
 """

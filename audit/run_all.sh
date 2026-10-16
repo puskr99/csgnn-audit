@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Reproduce the audit from a fresh clone (CPU is enough; ~3-4 min per BUPT/Sichuan run on 2 cores, ~8 GB RAM + swap).
+# Reproduce all results from a fresh clone (CPU is enough; ~3-4 min per BUPT/Sichuan run on 2 cores, ~8 GB RAM + swap).
 #   git clone <this repo> csgnn-audit && cd csgnn-audit && bash audit/run_all.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -26,7 +26,7 @@ python main.py --config ./config/csgnn_sichuan.yml 2>&1 | tee audit/logs/origina
 python audit/csgnn_audit.py --config config/csgnn_bupt.yml    --seeds 42 0 1 2 --perms 5 2>&1 | tee audit/logs/audit_bupt.log
 python audit/csgnn_audit.py --config config/csgnn_sichuan.yml --seeds 42 0 1 2 --perms 5 2>&1 | tee audit/logs/audit_sichuan.log
 
-# 5. fair budget: 200 epochs, epoch + label-free variant chosen on validation only (Sichuan ~45 min; BUPT ~5 h)
+# 5. longer training: 200 epochs, epoch + label-free variant chosen on validation only (Sichuan ~45 min; BUPT ~5 h)
 python audit/csgnn_audit.py --config config/csgnn_sichuan.yml --seeds 42 --max-epoch 200 --select-epoch 2>&1 | tee audit/logs/audit_sichuan_ep200.log
 # python audit/csgnn_audit.py --config config/csgnn_bupt.yml --seeds 42 --max-epoch 200 --select-epoch 2>&1 | tee audit/logs/audit_bupt_ep200.log
 

@@ -1,4 +1,4 @@
-# Where the released code uses test labels at inference
+# Code references: how labels enter the released evaluation path
 
 All references are to the unmodified files at commit
 `aef3136bd96b88ebee07cafc209fa9105a58a555` (xxhu94/CSGNN, "Update README.md", 25 Nov 2023), preserved in this
@@ -23,7 +23,7 @@ repository as tag `original-aef3136` and branch `original`. View any line with
 
 Secondary (minor) observations
 - `main.py:197-202`: the learned cost matrix is updated from validation-node labels and predictions (Eq. 17–20 of
-  the paper). This uses validation labels for training, which is a design choice, not test leakage.
+  the paper). This uses validation labels for training, which is a design choice and unrelated to the test-set observation.
 - `utils.py:41-43`: the early-stopping checkpoint stores `state_dict()` only; the RL neighbour-sampling
   thresholds `layer.p` are plain attributes and are not restored. Irrelevant for the released configs
   (early stopping off).
@@ -37,13 +37,13 @@ Secondary (minor) observations
 2. Running the released code unchanged with its released configuration and seed reproduces the published BUPT
    test AUC exactly (0.9698) and the G-Mean/recall to within 0.0004 (see `audit/logs/original_bupt_seed42.log`).
 3. Shuffling only the test labels before the inference call changes the reported metrics (label-permutation
-   test, `audit/csgnn_audit.py`), which is impossible for a leakage-free inference procedure.
-4. Scoring the same trained model without test labels gives much lower BUPT numbers.
+   test, `audit/csgnn_audit.py`), which would not happen if test labels did not enter the prediction path.
+4. Scoring the same trained model without test labels gives lower BUPT numbers (see `audit/RESULTS.md`).
 
-**Cannot be confirmed:**
+**What we cannot confirm from the released code:**
 - That the published tables were produced with exactly this code, configuration and software environment
   (we have no access to the authors' runs). The exact match of the BUPT AUC under the released configuration
-  makes it the most plausible explanation.
+  suggests that it is, but we cannot verify it.
 - Sichuan: the released configuration (15 epochs) gives AUC 0.9543 / G-Mean 0.8654 versus the published
   0.9539 / 0.8864. Trained for 200 epochs (seed 42), the released scoring gives 0.9558 / 0.8859, much closer to the
   published values, which suggests (but does not prove) that the published Sichuan numbers came from longer

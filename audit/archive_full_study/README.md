@@ -2,7 +2,10 @@
 
 These files are copied unchanged from the study behind our re-evaluation manuscript (run on a GPU server,
 Oct 2026). They are kept here so every CSGNN number in the manuscript can be traced; they are **not**
-needed to reproduce the audit (use `audit/run_all.sh`, which runs the released code itself).
+needed to reproduce the results in this repository (use `audit/run_all.sh`, which runs the released code itself).
+File names and option names (e.g. `leak_permutation.py`, `--eval leak` / `--eval honest`) are kept as they were in
+the original study so the files stay identical; `leak` means the released scoring and `honest` means scoring
+without test labels.
 
 | File | What it is |
 |---|---|
