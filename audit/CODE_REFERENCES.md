@@ -44,7 +44,9 @@ Secondary (minor) observations
 - That the published tables were produced with exactly this code, configuration and software environment
   (we have no access to the authors' runs). The exact match of the BUPT AUC under the released configuration
   makes it the most plausible explanation.
-- Sichuan: the released configuration gives AUC 0.9543 / G-Mean 0.8654 versus the published 0.9539 / 0.8864;
-  we could not close the G-Mean gap.
+- Sichuan: the released configuration (15 epochs) gives AUC 0.9543 / G-Mean 0.8654 versus the published
+  0.9539 / 0.8864. Trained for 200 epochs (seed 42), the released scoring gives 0.9558 / 0.8859, much closer to the
+  published values, which suggests (but does not prove) that the published Sichuan numbers came from longer
+  training. The same 200-epoch model scored without test labels gives 0.9403 / 0.8741.
 - Whether other reported experiments (ablations, parameter studies, other baselines in the paper) used the
   same scoring path.

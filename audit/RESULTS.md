@@ -34,3 +34,8 @@ Published (Hu et al., TCSS 2023): AUC 0.9539, G-Mean 0.8864, Recall 0.8878
 Largest change of a single test probability when only test labels are shuffled: 0.0158 (max over seeds; per seed 0.009, 0.013, 0.011, 0.016).  
 Uniformly random predictor: AUC 0.5089; after the released label-indexed transform: 0.5254.
 
+## Sichuan, 200 epochs, seed 42: label-free validation selection
+
+- Released scoring after the last epoch: AUC 0.9558, G-Mean 0.8859
+- Label-free, epoch 184 and variant `lf_none` chosen on validation (G-Mean + AUC): AUC 0.9390, G-Mean 0.8758, macro recall 0.8785
+
