@@ -207,4 +207,6 @@ Auc= 0.9558 G-mean= 0.8859 Recall= 0.8900
 [audit] lf_none      AUC 0.9403  G-Mean 0.8741
 [audit] lf_pred_row  AUC 0.9403  G-Mean 0.8741
 [audit] lf_expected  AUC 0.9403  G-Mean 0.8714
+[audit] lf_mec_paper AUC 0.9403  G-Mean 0.0754
+[audit] lf_mec_code  AUC 0.9403  G-Mean 0.1138
 [audit] val-selected epoch 184 (lf_none): AUC 0.9390  G-Mean 0.8758

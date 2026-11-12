@@ -1,0 +1,23 @@
+
+===== BUPT seed 42: control_a =====
+Epoch 0, Train: Recall: 0.3349 AUC: 0.8634 Loss: 3.6341 | Val: Recall: 0.3374 AUC: 0.8681 Loss: 3.6378 
+Test set results: 
+Auc= 0.9698 G-mean= 0.8259 Recall= 0.8313
+
+===== BUPT seed 42: control_b =====
+Epoch 0, Train: Recall: 0.3349 AUC: 0.8634 Loss: 3.6341 | Val: Recall: 0.3374 AUC: 0.8681 Loss: 3.6378 
+Test set results: 
+Auc= 0.9698 G-mean= 0.8259 Recall= 0.8313
+
+===== BUPT seed 42: permute_test =====
+Epoch 0, Train: Recall: 0.3349 AUC: 0.8634 Loss: 3.6341 | Val: Recall: 0.3374 AUC: 0.8681 Loss: 3.6378 
+Test set results: 
+Auc= 0.7412 G-mean= 0.5425 Recall= 0.5516
+
+===== BUPT seed 42: permute_val =====
+Epoch 0, Train: Recall: 0.3349 AUC: 0.8634 Loss: 3.6341 | Val: Recall: 0.3336 AUC: 0.7535 Loss: 3.6556 
+Test set results: 
+Auc= 0.9681 G-mean= 0.8249 Recall= 0.8303
+[train-perm] control_b    vs control_a: max|dz| 0  max|dM| 0  identical=True
+[train-perm] permute_test vs control_a: max|dz| 0  max|dM| 0  identical=True
+[train-perm] permute_val  vs control_a: max|dz| 0  max|dM| 0.02  identical=False

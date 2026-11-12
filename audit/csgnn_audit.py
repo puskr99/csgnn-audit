@@ -15,6 +15,10 @@ From those we score the *same trained model* in several ways (test nodes only):
   lf_none        : label-free, cost layer dropped           p = softmax(z)
   lf_pred_row    : label-free, row of the PREDICTED class   cost_logits(z, argmax z)
   lf_expected    : label-free, expected cost row            p ~ (softmax(z)^T M) * exp(z)
+  lf_mec_paper   : label-free, minimum-expected-cost decision, rows of M = TRUE class (paper, Sec. 3):
+                   y = argmin_j sum_i q_i M[i, j],  q = softmax(z); AUC from q
+  lf_mec_code    : label-free, minimum-expected-cost decision, rows of M = PREDICTED class (as M is built in
+                   utils._set_cost_matrix): y = argmin_j sum_i q_i M[j, i]; AUC from q
 
 If test labels did not enter the prediction path, released/shuffled/test_labels_0 would give identical predictions.
 
@@ -99,6 +103,9 @@ def score_all(rec, labels, idx, C, perms, rng, label_free_only=False):
     w = (q @ M) * torch.exp(z)
     pe = w / w.sum(1, keepdim=True)
     out["lf_expected"] = metrics(y, pe[idx], pe[idx].argmax(1), C)
+    # minimum-expected-cost decision rule (Elkan 2001), both orientations of the learned cost matrix
+    out["lf_mec_paper"] = metrics(y, q[idx], (q @ M)[idx].argmin(1), C)        # sum_i q_i M[i, j]
+    out["lf_mec_code"] = metrics(y, q[idx], (q @ M.T)[idx].argmin(1), C)       # sum_i q_i M[j, i]
     if label_free_only:
         return out
     # released scoring (uses true labels of evaluated nodes)
@@ -166,6 +173,7 @@ def main():
         labels, idx, C = get_split(args)
         rng = np.random.default_rng(1000 + seed)
         res = dict(dataset=args.dataset, seed=seed, max_epoch=args.max_epoch, config=A.config,
+                   learned_cost_matrix=CALLS[-1]["M"].tolist(),
                    seconds=round(secs, 1), n_test=int(len(idx["test"])),
                    final=score_all(CALLS[-1], labels, idx["test"], C, A.perms, rng))
         if A.select_epoch:
@@ -174,6 +182,8 @@ def main():
             for e, rec in enumerate(train_calls):
                 v = score_all(rec, labels, idx["val"], C, 0, rng, label_free_only=True)
                 for var, m in v.items():
+                    if var.startswith("lf_mec"):
+                        continue          # keep the selection identical to the earlier runs; MEC reported below
                     s = m["gmean"] + m["auc"]
                     if s > best:
                         best, best_e, best_var = s, e, var
@@ -189,7 +199,7 @@ def main():
         print(f"[audit] released     AUC {r['released']['auc']:.4f}  G-Mean {r['released']['gmean']:.4f}")
         print(f"[audit] shuffled     AUC {r['shuffled_mean']['auc']:.4f}  G-Mean {r['shuffled_mean']['gmean']:.4f}"
               f"  max |dp| {r['max_abs_prob_change_under_shuffle']:.4f}")
-        for v in ("lf_none", "lf_pred_row", "lf_expected"):
+        for v in ("lf_none", "lf_pred_row", "lf_expected", "lf_mec_paper", "lf_mec_code"):
             print(f"[audit] {v:12s} AUC {r[v]['auc']:.4f}  G-Mean {r[v]['gmean']:.4f}")
         if A.select_epoch:
             s = res["label_free_selected"]

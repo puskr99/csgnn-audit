@@ -1,0 +1,57 @@
+{
+ "dataset": "BUPT",
+ "seed": 42,
+ "max_epoch": 1,
+ "config": "config/csgnn_bupt.yml",
+ "n_recorded_calls": 2,
+ "seconds": {
+  "control_a": 170.9545612335205,
+  "control_b": 167.0097930431366,
+  "permute_test": 166.7415521144867,
+  "permute_val": 165.78568816184998
+ },
+ "labels_changed": {
+  "control_a": {
+   "nodes_in_group": 0,
+   "labels_changed": 0
+  },
+  "control_b": {
+   "nodes_in_group": 0,
+   "labels_changed": 0
+  },
+  "permute_test": {
+   "nodes_in_group": 69831,
+   "labels_changed": 17740
+  },
+  "permute_val": {
+   "nodes_in_group": 23276,
+   "labels_changed": 5860
+  }
+ },
+ "comparisons": {
+  "control_b": {
+   "max_abs_diff_outputs_all_epochs": 0.0,
+   "max_abs_diff_cost_matrix_all_epochs": 0.0,
+   "max_abs_diff_final_outputs": 0.0,
+   "identical": true
+  },
+  "permute_test": {
+   "max_abs_diff_outputs_all_epochs": 0.0,
+   "max_abs_diff_cost_matrix_all_epochs": 0.0,
+   "max_abs_diff_final_outputs": 0.0,
+   "identical": true
+  },
+  "permute_val": {
+   "max_abs_diff_outputs_all_epochs": 0.0,
+   "max_abs_diff_cost_matrix_all_epochs": 0.019999980926513672,
+   "max_abs_diff_final_outputs": 0.0,
+   "identical": false
+  }
+ },
+ "env": {
+  "python": "3.11.17",
+  "torch": "2.1.2+cu121",
+  "dgl": "2.1.0",
+  "numpy": "1.26.4"
+ }
+}

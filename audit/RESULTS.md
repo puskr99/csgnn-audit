@@ -14,6 +14,8 @@ Published (Hu et al., TCSS 2023): AUC 0.9698, G-Mean 0.8262, Recall 0.8317
 | Label-free: cost layer dropped | 0.8139 | 0.0000 | 0.7591 ± 0.0418 | 0.0000 ± 0.0000 | 0.4032 ± 0.0671 |
 | Label-free: row of predicted class | 0.8601 | 0.6737 | 0.7966 ± 0.0427 | 0.3366 ± 0.2751 | 0.5644 ± 0.0999 |
 | Label-free: expected cost row | 0.8590 | 0.6819 | 0.7945 ± 0.0435 | 0.3310 ± 0.2800 | 0.5550 ± 0.1112 |
+| Label-free: min. expected cost, rows = true class (paper) | 0.8139 | 0.0000 | 0.7591 ± 0.0418 | 0.0000 ± 0.0000 | 0.3333 ± 0.0000 |
+| Label-free: min. expected cost, rows = predicted class (code) | 0.8139 | 0.0000 | 0.7591 ± 0.0418 | 0.0000 ± 0.0000 | 0.3333 ± 0.0000 |
 
 Largest change of a single test probability when only test labels are shuffled: 0.0840 (max over seeds; per seed 0.077, 0.054, 0.069, 0.084).  
 Uniformly random predictor: AUC 0.5007; after the released label-indexed transform: 0.5691.
@@ -30,6 +32,8 @@ Published (Hu et al., TCSS 2023): AUC 0.9539, G-Mean 0.8864, Recall 0.8878
 | Label-free: cost layer dropped | 0.9287 | 0.8649 | 0.9220 ± 0.0140 | 0.8609 ± 0.0068 | 0.8665 ± 0.0058 |
 | Label-free: row of predicted class | 0.9287 | 0.8649 | 0.9220 ± 0.0140 | 0.8609 ± 0.0067 | 0.8663 ± 0.0058 |
 | Label-free: expected cost row | 0.9287 | 0.8649 | 0.9220 ± 0.0140 | 0.8609 ± 0.0067 | 0.8663 ± 0.0058 |
+| Label-free: min. expected cost, rows = true class (paper) | 0.9287 | 0.0000 | 0.9220 ± 0.0140 | 0.0000 ± 0.0000 | 0.5000 ± 0.0000 |
+| Label-free: min. expected cost, rows = predicted class (code) | 0.9287 | 0.0000 | 0.9220 ± 0.0140 | 0.0000 ± 0.0000 | 0.5000 ± 0.0000 |
 
 Largest change of a single test probability when only test labels are shuffled: 0.0158 (max over seeds; per seed 0.009, 0.013, 0.011, 0.016).  
 Uniformly random predictor: AUC 0.5089; after the released label-indexed transform: 0.5254.
@@ -37,5 +41,19 @@ Uniformly random predictor: AUC 0.5089; after the released label-indexed transfo
 ## Sichuan, 200 epochs, seed 42: label-free validation selection
 
 - Released scoring after the last epoch: AUC 0.9558, G-Mean 0.8859
+- Minimum expected cost after the last epoch: G-Mean 0.0754 (rows = true class), 0.1138 (rows = predicted class); AUC 0.9403
 - Label-free, epoch 184 and variant `lf_none` chosen on validation (G-Mean + AUC): AUC 0.9390, G-Mean 0.8758, macro recall 0.8785
+
+## Do test labels influence training? (label permutation before training)
+
+The released `main.main` is run with the same seed; only the labels of one node group are permuted after the released split is built. Outputs = raw network outputs of all nodes at every recorded call (all epochs + final).
+
+| Dataset | Comparison with an unmodified run | Labels changed | max abs. diff. outputs | max abs. diff. cost matrix | Identical |
+|---|---|---|---|---|---|
+| BUPT (1 ep., seed 42) | second unmodified run (determinism) | 0 of 0 | 0 | 0 | yes |
+| BUPT (1 ep., seed 42) | test labels permuted | 17740 of 69831 | 0 | 0 | yes |
+| BUPT (1 ep., seed 42) | validation labels permuted (positive control) | 5860 of 23276 | 0 | 0.02 | no |
+| Sichuan (15 ep., seed 42) | second unmodified run (determinism) | 0 of 0 | 0 | 0 | yes |
+| Sichuan (15 ep., seed 42) | test labels permuted | 1536 of 3664 | 0 | 0 | yes |
+| Sichuan (15 ep., seed 42) | validation labels permuted (positive control) | 558 of 1221 | 4.19 | 0.0808 | no |
 

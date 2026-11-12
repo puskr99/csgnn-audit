@@ -30,4 +30,8 @@ python audit/csgnn_audit.py --config config/csgnn_sichuan.yml --seeds 42 0 1 2 -
 python audit/csgnn_audit.py --config config/csgnn_sichuan.yml --seeds 42 --max-epoch 200 --select-epoch 2>&1 | tee audit/logs/audit_sichuan_ep200.log
 # python audit/csgnn_audit.py --config config/csgnn_bupt.yml --seeds 42 --max-epoch 200 --select-epoch 2>&1 | tee audit/logs/audit_bupt_ep200.log
 
+# 6. do test labels influence training? permute them (and, as a positive control, the validation labels) before training
+python audit/train_permutation_test.py --config config/csgnn_bupt.yml    --seed 42 2>&1 | tee audit/logs/train_perm_bupt.log
+python audit/train_permutation_test.py --config config/csgnn_sichuan.yml --seed 42 2>&1 | tee audit/logs/train_perm_sichuan.log
+
 python audit/summarise.py > audit/RESULTS.md

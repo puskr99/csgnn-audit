@@ -8,6 +8,8 @@ Auc= 0.9698 G-mean= 0.8259 Recall= 0.8313
 [audit] lf_none      AUC 0.8139  G-Mean 0.0000
 [audit] lf_pred_row  AUC 0.8601  G-Mean 0.6737
 [audit] lf_expected  AUC 0.8590  G-Mean 0.6819
+[audit] lf_mec_paper AUC 0.8139  G-Mean 0.0000
+[audit] lf_mec_code  AUC 0.8139  G-Mean 0.0000
 
 ===== bupt_ep1_seed0 =====
 Epoch 0, Train: Recall: 0.3629 AUC: 0.7512 Loss: 3.4668 | Val: Recall: 0.3691 AUC: 0.7575 Loss: 3.4636 
@@ -18,6 +20,8 @@ Auc= 0.9399 G-mean= 0.5852 Recall= 0.6302
 [audit] lf_none      AUC 0.7141  G-Mean 0.0000
 [audit] lf_pred_row  AUC 0.7824  G-Mean 0.3331
 [audit] lf_expected  AUC 0.7816  G-Mean 0.3547
+[audit] lf_mec_paper AUC 0.7141  G-Mean 0.0000
+[audit] lf_mec_code  AUC 0.7141  G-Mean 0.0000
 
 ===== bupt_ep1_seed1 =====
 Epoch 0, Train: Recall: 0.2969 AUC: 0.5619 Loss: 3.7416 | Val: Recall: 0.3012 AUC: 0.5713 Loss: 3.7393 
@@ -28,6 +32,8 @@ Auc= 0.9502 G-mean= 0.0000 Recall= 0.5817
 [audit] lf_none      AUC 0.7635  G-Mean 0.0000
 [audit] lf_pred_row  AUC 0.7736  G-Mean 0.0000
 [audit] lf_expected  AUC 0.7707  G-Mean 0.0000
+[audit] lf_mec_paper AUC 0.7635  G-Mean 0.0000
+[audit] lf_mec_code  AUC 0.7635  G-Mean 0.0000
 
 ===== bupt_ep1_seed2 =====
 Epoch 0, Train: Recall: 0.3492 AUC: 0.7668 Loss: 3.6984 | Val: Recall: 0.3356 AUC: 0.7577 Loss: 3.6977 
@@ -38,3 +44,5 @@ Auc= 0.9675 G-mean= 0.4093 Recall= 0.5106
 [audit] lf_none      AUC 0.7448  G-Mean 0.0000
 [audit] lf_pred_row  AUC 0.7700  G-Mean 0.3396
 [audit] lf_expected  AUC 0.7667  G-Mean 0.2875
+[audit] lf_mec_paper AUC 0.7448  G-Mean 0.0000
+[audit] lf_mec_code  AUC 0.7448  G-Mean 0.0000

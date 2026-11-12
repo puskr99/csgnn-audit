@@ -1,0 +1,57 @@
+{
+ "dataset": "Sichuan",
+ "seed": 42,
+ "max_epoch": 15,
+ "config": "config/csgnn_sichuan.yml",
+ "n_recorded_calls": 16,
+ "seconds": {
+  "control_a": 194.35384440422058,
+  "control_b": 184.27851390838623,
+  "permute_test": 187.43201541900635,
+  "permute_val": 183.6245801448822
+ },
+ "labels_changed": {
+  "control_a": {
+   "nodes_in_group": 0,
+   "labels_changed": 0
+  },
+  "control_b": {
+   "nodes_in_group": 0,
+   "labels_changed": 0
+  },
+  "permute_test": {
+   "nodes_in_group": 3664,
+   "labels_changed": 1536
+  },
+  "permute_val": {
+   "nodes_in_group": 1221,
+   "labels_changed": 558
+  }
+ },
+ "comparisons": {
+  "control_b": {
+   "max_abs_diff_outputs_all_epochs": 0.0,
+   "max_abs_diff_cost_matrix_all_epochs": 0.0,
+   "max_abs_diff_final_outputs": 0.0,
+   "identical": true
+  },
+  "permute_test": {
+   "max_abs_diff_outputs_all_epochs": 0.0,
+   "max_abs_diff_cost_matrix_all_epochs": 0.0,
+   "max_abs_diff_final_outputs": 0.0,
+   "identical": true
+  },
+  "permute_val": {
+   "max_abs_diff_outputs_all_epochs": 4.188929557800293,
+   "max_abs_diff_cost_matrix_all_epochs": 0.08083486557006836,
+   "max_abs_diff_final_outputs": 4.188929557800293,
+   "identical": false
+  }
+ },
+ "env": {
+  "python": "3.11.17",
+  "torch": "2.1.2+cu121",
+  "dgl": "2.1.0",
+  "numpy": "1.26.4"
+ }
+}

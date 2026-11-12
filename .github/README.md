@@ -1,10 +1,13 @@
-# CSGNN reproducibility study
+# CSGNN reproducibility study and re-evaluation of telecom fraud detection
 
 This repository documents a reproduction of the results reported in
 
 > X. Hu et al., "Cost Sensitive GNN-based Imbalanced Learning for Mobile Social Network Fraud Detection",
 > *IEEE Transactions on Computational Social Systems*, 2023, doi:10.1109/TCSS.2023.3302651
 > Code: <https://github.com/xxhu94/CSGNN>
+
+It also contains the code and results of our wider re-evaluation of graph-based telecom fraud detection
+(`reeval/`, see [below](#re-evaluation-study-reeval)).
 
 We thank the authors for releasing their code and data, which made this study possible. CSGNN is a strong
 reference method on the Sichuan and BUPT telecom-fraud benchmarks, and we reproduced it as a baseline for our own
@@ -14,10 +17,14 @@ and, if confirmed, corrected.
 
 ## Observation
 
-In the released implementation, the cost-sensitive output layer (`CostMatrix.cost_logits`, `model.py:203-213`)
+In the released implementation, the cost-sensitive output layer (`CostMatrix.cost_logits`,
+[`model.py:203-213`](https://github.com/xxhu94/CSGNN/blob/aef3136bd96b88ebee07cafc209fa9105a58a555/model.py#L203-L213))
 weights each node's class scores with the row of the cost matrix that corresponds to the node's label. This is
-natural during training. The same function is also applied after training (`main.py:261`), with the labels of all
-nodes, before the test AUC and G-Mean are computed. As a result, the ground-truth labels of the test nodes
+natural during training. The same function is also applied after training
+([`main.py:261`](https://github.com/xxhu94/CSGNN/blob/aef3136bd96b88ebee07cafc209fa9105a58a555/main.py#L261)), with
+the labels of all nodes
+([`main.py:145`](https://github.com/xxhu94/CSGNN/blob/aef3136bd96b88ebee07cafc209fa9105a58a555/main.py#L145)), before
+the test AUC and G-Mean are computed. As a result, the ground-truth labels of the test nodes
 influence their predicted scores.
 
 This is most likely an implementation detail rather than part of the method's design: the label-indexed layer is
@@ -32,7 +39,7 @@ The full upstream history (9 commits, authors and dates intact) is kept in this 
 |---|---|
 | tag `original-aef3136` | `aef3136bd96b88ebee07cafc209fa9105a58a555` (upstream HEAD, 25 Nov 2023) |
 | branch `original` | the same commit, never modified |
-| branch `main` | `aef3136` + commits that only **add** files under `audit/` and `.github/` |
+| branch `main` | `aef3136` + commits that only **add** files under `audit/`, `reeval/` and `.github/` |
 
 The upstream `README.md` and all code, config and data files at the repository root are byte-identical to `aef3136`.
 To check:
@@ -42,7 +49,7 @@ bash audit/verify_original.sh          # git diff aef3136 HEAD over every origin
 git log --format='%h %an %ad %s' original-aef3136
 ```
 
-## Reproduce (CPU only, about 1 h 15 min on 2 cores)
+## Reproduce (CPU only, about 1 h 45 min on 2 cores)
 
 ```bash
 git clone <this repository> csgnn-audit && cd csgnn-audit
@@ -113,19 +120,76 @@ These results describe the released implementation only. They do not evaluate th
 be run without test labels at inference, as the label-free rows show. Full tables are in `audit/RESULTS.md` and raw
 console output in `audit/logs/`.
 
+## Additional checks
+
+### Test labels do not influence training
+
+`audit/train_permutation_test.py` runs the released `main.main` several times with the same seed. Between the
+released data loader (which builds the split) and training, it permutes the labels of one group of nodes, and it
+compares the network outputs of every node at every epoch, and the learned cost matrix, with an unmodified run.
+
+| Dataset (released config, seed 42) | Labels permuted before training | Outputs and cost matrix identical to the unmodified run? |
+|---|---|---|
+| BUPT (1 epoch) | none (second unmodified run) | yes, bit-identical (training is deterministic) |
+| | test nodes | **yes, bit-identical** |
+| | validation nodes (positive control) | no: cost matrix differs by up to 0.020 |
+| Sichuan (15 epochs) | none (second unmodified run) | yes, bit-identical |
+| | test nodes | **yes, bit-identical** |
+| | validation nodes (positive control) | no: outputs differ by up to 4.19, cost matrix by up to 0.081 |
+
+Test labels therefore enter only the final scoring step (`main.py:261`), not training. Validation labels do enter
+training, through the cost-matrix update (`main.py:197-207`), as the method describes; the positive control shows
+that the test is sensitive enough to detect such use.
+
+### Minimum-expected-cost decisions with the learned cost matrix
+
+A standard label-free cost-sensitive decision is the class of minimum expected cost under the model's own
+probabilities `q = softmax(z)`. The orientation of the cost matrix matters here. The paper (Section 3) defines
+`C_ij` as the cost of classifying a class-`i` sample as class `j` (rows = true class); the released code initialises
+the matrix with rows = predicted class (`utils._set_cost_matrix`, also `utils.misclassification_cost`) and then fits
+it to a target built from a confusion matrix whose rows are true classes (`main.py:197-207`). The orientation of the
+learned matrix is therefore ambiguous, and we score both:
+
+| Released config, seed 42 | AUC (from `q`) | G-Mean, rows = true class | G-Mean, rows = predicted class |
+|---|---|---|---|
+| BUPT (1 epoch) | 0.8139 | 0.0000 | 0.0000 |
+| Sichuan (15 epochs) | 0.9287 | 0.0000 | 0.0000 |
+| Sichuan (200 epochs) | 0.9403 | 0.0754 | 0.1138 |
+
+With the learned matrices of the released configurations, either orientation assigns every node to a single class
+(the majority class with rows = true class, a minority class with rows = predicted class), for all four seeds on
+both datasets. After 200 epochs on Sichuan the rule is still close to degenerate (G-Mean 0.08 / 0.11); the learned
+matrix is then `[[2.48, 0.94], [2.08, 2.57]]`, with the largest costs on the diagonal. The reason is
+in the matrices themselves: correct decisions are not the cheapest ones. For Sichuan (seed 42) the learned matrix is
+`[[0.803, 1.183], [0.501, 0.838]]`; whichever way it is read, one decision is cheaper than the other for every
+probability vector. A minimum-expected-cost rule therefore needs a further specification (for example, how the
+learned matrix is normalised) before it can be applied; we do not choose one here. AUC is unaffected because it
+depends only on `q`. The other label-free scorings in the results table do not have this problem.
+
 ## Limitations
 
 - We have no access to the original experimental runs, so we cannot confirm that the published tables were
   produced with this exact code, configuration and software environment.
 - We could not reproduce the reported Sichuan G-Mean with the 15-epoch configuration stated in the paper and the
   released code.
-- The paper (Section 4.3.2, Eq. 13) defines the cost-sensitive output as `Softmax(C[v, k] · z_v[k])` and does not
-  state how the cost-matrix row is chosen for a test node, whose label is unknown at test time. We report what the
+- The paper (Section 4.3.2, Eq. 13) defines the cost-sensitive output as `Softmax(C[v, k] · z_v[k])`, written out as
+  `C_{v,k} exp(z_v[k]) / sum_k' C_{v,k'} exp(z_v[k'])`, which is what the code computes. It does not state how the
+  cost-matrix row is chosen for a test node, whose label is unknown at test time. We report what the
   released code does; we do not infer the authors' intended test-time procedure.
 - We did not examine the paper's other experiments (ablations, parameter studies, baselines).
 
 Corrections and comments are welcome; please open an issue or contact the maintainers. We will update this
 repository if any part of the analysis turns out to be wrong.
+
+## Re-evaluation study (`reeval/`)
+
+`reeval/` holds the code, split indices and per-run results of the manuscript *Label Leakage, Simple Baselines and
+What Actually Drives Performance: A Re-evaluation of Graph-Based Telecom Fraud Detection* (P. Adhikari,
+C. Polprasert, S. Pradhanang; submitted to *Machine Learning with Applications*): a shared protocol (five splits,
+validation-only selection), the reference model CS-Boost, all baselines and ports (MLP, GCN, GraphSAGE, GAT, BWGNN,
+PC-GNN, CSGNN, GAT-COBO), the factorial design, degree-preserving rewiring, the YelpChi/Amazon comparison and the
+revision experiments. See [`reeval/README.md`](reeval/README.md). The benchmark files are not redistributed;
+`reeval/data/README.md` says where to get them.
 
 ## Repository layout
 
@@ -134,6 +198,7 @@ repository if any part of the analysis turns out to be wrong.
 .github/README.md          this file (GitHub shows it in place of the upstream README)
 audit/CODE_REFERENCES.md   line-by-line code references and what can / cannot be confirmed
 audit/csgnn_audit.py       evaluation script (runs the released main.main unchanged)
+audit/train_permutation_test.py  checks whether test labels influence training (released main.main, unchanged)
 audit/summarise.py         results/*.json -> RESULTS.md
 audit/run_all.sh           end-to-end reproduction
 audit/verify_original.sh   checks that the upstream files are unchanged
@@ -141,6 +206,7 @@ audit/requirements.txt     exact environment used
 audit/results/             one JSON per run (all metrics, all scorings, environment)
 audit/logs/                console logs of every run
 audit/archive_full_study/  CSGNN scripts and results of the wider study (5 splits x 4 seeds, 200 epochs)
+reeval/                    code, split indices and results of the re-evaluation manuscript
 ```
 
 ## Licence
