@@ -1,0 +1,10 @@
+[sichuan mlp split0] chosen wpow=0.5 lam=1.0
+[sichuan mlp split1] chosen wpow=0.5 lam=1.0
+[sichuan mlp split2] chosen wpow=0.5 lam=1.0
+[sichuan mlp split3] chosen wpow=0.5 lam=1.0
+[sichuan mlp split4] chosen wpow=0.5 lam=1.0
+[sichuan sage split0] chosen wpow=0.5 lam=1.0
+[sichuan sage split1] chosen wpow=0.5 lam=1.0
+[sichuan sage split2] chosen wpow=0.5 lam=1.5
+[sichuan sage split3] chosen wpow=0.5 lam=1.0
+[sichuan sage split4] chosen wpow=0.5 lam=1.0

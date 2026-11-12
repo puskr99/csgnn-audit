@@ -1,0 +1,10 @@
+# Install torch separately with the CUDA build matching your driver (see ../README.md).
+numpy>=1.24
+scipy>=1.10
+scikit-learn>=1.3
+pandas>=2.0
+lightgbm>=4.0
+sympy>=1.12
+# GAT-COBO stage only (plus dgl, see ../README.md):
+imbalanced-learn>=0.11
+pyyaml

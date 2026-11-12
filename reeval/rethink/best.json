@@ -1,0 +1,2 @@
+{"sichuan": "--ops sym1 --hidden 256 --dropout 0.3 --lr 0.003 --wd 0.001 --gb_leaves 15 --gb_mcs 100 --gb_col 0.8",
+ "bupt": "--ops sym1 --hidden 256 --dropout 0.5 --lr 0.003 --wd 0.0001 --gb_leaves 31 --gb_mcs 20 --gb_col 0.5"}
